@@ -9,7 +9,7 @@ on:
       - master
 
 env:
-  CSV_URL: "Project/wine-quality.csv"
+  CSV_URL: "Modul 2 - Membangun dan Mengelola Metadata dengan Tools Open-Source/Latihan Version Control/Project/wine-quality.csv"
   TARGET_VAR: "quality"
   ALPHA: 0.5
   L1_RATIO: 0.5
