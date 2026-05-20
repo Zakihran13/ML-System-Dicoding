@@ -10,7 +10,7 @@ mlflow.set_tracking_uri("http://127.0.0.1:5000/")
 # Create a new MLflow Experiment
 mlflow.set_experiment("Latihan Credit Scoring")
 
-data = pd.read_csv("train_pca.csv")
+data = pd.read_csv("Modul 2 - Membangun dan Mengelola Metadata dengan Tools Open-Source\\Latihan Membuat Version Control Menggunakan MLflow\\train_pca.csv")
 
 X_train, X_test, y_train, y_test = train_test_split(
     data.drop("Credit_Score", axis=1),
