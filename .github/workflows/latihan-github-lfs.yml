@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      
+permissions:
+  contents: write
+
+env:
+  CSV_URL: "Modul 2 - Membangun dan Mengelola Metadata dengan Tools Open-Source\\Latihan Membuat Version Control Menggunakan MLflow\\MLproject\\train_pca.csv"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - uses: actions/checkout@v3
+
+        # Setup Python 3.12.7
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12.7"
+
+        # Check Env Variables
+      - name: Check Env
+        run: |
+          echo $CSV_URL
+
+        # Install mlflow
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mlflow
+
+        # Run as a mlflow project
+      - name: Run mlflow project
+        env:
+          MLFLOW_TRACKING_URI: "file://${{ github.workspace }}/Modul 2 - Membangun dan Mengelola Metadata dengan Tools Open-Source/Latihan Membuat Version Control Menggunakan MLflow/mlruns"
+        run: |
+          mlflow run "Modul 2 - Membangun dan Mengelola Metadata dengan Tools Open-Source/Latihan Membuat Version Control Menggunakan MLflow/MLproject" --env-manager=local 
+
+        # Set up LFS and Save models to GitHub Repository
+      - name: Save mlruns to repo via Git LFS
+        run: |
+          git config --global user.name "${{ secrets.username }}"
+          git config --global user.email "${{ secrets.email }}"
+          
+          # Initialize Git LFS and track the nested mlruns folder
+          git lfs install
+          git lfs track "**/mlruns/**"
+          git add .gitattributes
+          
+          # Add the newly generated nested mlruns folder
+          git add "Modul 2 - Membangun dan Mengelola Metadata dengan Tools Open-Source/Latihan Membuat Version Control Menggunakan MLflow/mlruns/"
+          
+          # Commit and push (using || true to prevent failure if no changes occurred)
+          git commit -m "Save mlruns from CI run using Git LFS" || true
+          git push origin main
+
+        
+
