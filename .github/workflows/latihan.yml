@@ -10,7 +10,7 @@ on:
 
 
 env:
-  CSV_URL: "Modul 2 - Membangun dan Mengelola Metadata dengan Tools Open-Source\\Latihan Membuat Version Control Menggunakan MLflow\\MLproject\\train_pca.csv"
+  CSV_URL: "Modul 2 - Membangun dan Mengelola Metadata dengan Tools Open-Source\\\\Latihan Membuat Version Control Menggunakan MLflow\\\\MLproject\\\\train_pca.csv"
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
         # Run as a mlflow project
       - name: Run mlflow project
         run: |
-          mlflow run MLproject --env-manager=local 
+          mlflow run "Modul 2 - Membangun dan Mengelola Metadata dengan Tools Open-Source\\Latihan Membuat Version Control Menggunakan MLflow\\MLproject" --env-manager=local 
 
         # Save models to GitHub Repository
       - name: Save mlruns to repo
